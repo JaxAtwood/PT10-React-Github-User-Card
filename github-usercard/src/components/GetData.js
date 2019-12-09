@@ -8,6 +8,8 @@ const MyCard = styled.div `
     font-size: 1.8rem;
     height: 150px;
     display: flex;
+    width: 40%;
+    margin: 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;

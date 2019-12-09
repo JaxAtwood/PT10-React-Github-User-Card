@@ -1,6 +1,24 @@
 import React from "react";
 import axios from "axios";
-// import FollowerCard from "./FollowerCard";
+import styled from "styled-components";
+
+const Bar = styled.input `
+    height: 40px;
+    font-size: 20px;
+    margin-top: 20px;
+`
+const Box = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+`
+const User = styled.div `
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 1px;
+`
 
 function searchingFor(term) {
     return function(x){
@@ -30,11 +48,11 @@ class GetFollowerData extends React.Component {
 
     fetchData = () => {
         axios
-        .get(`https://api.github.com/users/JaxAtwood/followers`)
+        .get(`https://api.github.com/users/JaxAtwood/followers?per_page=100`)
         .then(res => {
             console.log(res.data)
             this.setState({
-                followers: res.data
+                followers: res.data,
             })
         })
         .catch(error => {
@@ -46,9 +64,9 @@ class GetFollowerData extends React.Component {
 render() {
     const {term, followers} = this.state;
     return (
-    <div>
+    <Box>
         <form>
-            <input 
+            <Bar 
                 type="text"
                 placeholder="search..."
                 onChange={this.searchHandler}
@@ -56,18 +74,18 @@ render() {
                 />
         </form>
     <div>
-
+        <h1>Current # of Followers: {followers.length}</h1>
          {followers.filter(searchingFor(term)).map((item, index) => {
             return (
                 <div key={index}>
-                    <div>
+                    <User>
                         <p>{item.login}</p>
-                    </div>
+                    </User>
                 </div>
                 );
                })}
     </div>
-    </div>
+    </Box>
 
             )
         }

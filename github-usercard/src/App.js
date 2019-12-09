@@ -1,39 +1,41 @@
 import React from 'react';
+import { Route } from "react-router-dom";
 import GetData from "./components/GetData";
-import GetFollowerData from "./components/GetFollowerData";
-// import GetFollowingData from "./components/GetFollowingData";
+import Nav from "./components/Nav";
+import GetFollowingData from './components/GetFollowingData';
+import GetFollowerData from './components/GetFollowerData';
+import styled from "styled-components";
+
+const Header = styled.div `
+  border: black solid 1px;
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+`
+
+const Title = styled.h1 `
+  // border: black solid 1px;
+  margin-left: 20px;
+`
+
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      logins: "",
-    };
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(prevState.logins !== this.state.logins) {
-    this.setState({
-      logins: "",
-    }, [])
-  }
-  }
-  handleChange = (event) => {
-    this.setState({
-      logins: event.target.value
-    })
-  }
 
   render() {
     return (
       <> 
-        <h1>GitHub User Card</h1>
+        <Header>
+          <Title>My GitHub User Card</Title>
+        <Nav />
+        </Header>
         <GetData />
-        {/* <select value={this.state.logins} onChange={this.handleChange}>
-          <option value={<GetFollowerData logins={this.state.logins}/>}>Followers</option>
-          <option value={<GetFollowingData />}>Following</option>
-        </select> */}
-        <GetFollowerData />
+        <Route path="/followers" component={GetFollowerData}></Route>
+        <Route path="/following" component={GetFollowingData}></Route>
       </>
     )
   }
